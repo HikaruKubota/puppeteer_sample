@@ -1,1 +1,4 @@
-puppeteer_sample
+command
+
+npm i puppeteer
+node main
