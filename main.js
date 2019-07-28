@@ -13,16 +13,9 @@ const my_slack = require('./slack');
 
   let items = await page.$$('.item_body');
   let datas = await my_module.create_datas(items);
-
   const nowDate = new Date();
 
-  await my_slack.send_message(
-    datas.filter(date => {
-      // 掲載日：YYYY年MM月DD日　→　YYYY年MM月DD日
-      const DatPublished = date.DatPublished.replace(/\s+/g, '').split('：')[1];
-      return nowDate.getDate() == DatPublished.slice(8,10);
-    })
-  );
+  await my_slack.send_message(my_module.dates_filter(datas, nowDate));
 
   //クラウドワークス 新着 アプリ・スマートフォン開発
   await page.goto('https://crowdworks.jp/public/jobs/search?category_id=242&keep_search_criteria=true&order=new&hide_expired=true');
@@ -30,13 +23,7 @@ const my_slack = require('./slack');
   items = await page.$$('.item_body');
   datas = await my_module.create_datas(items);
 
-  await my_slack.send_message(
-    datas.filter(date => {
-      // 掲載日：YYYY年MM月DD日　→　YYYY年MM月DD日
-      const DatPublished = date.DatPublished.replace(/\s+/g, "").split('：')[1];
-      return nowDate.getDate() == DatPublished.slice(8,10);
-    })
-  );
+  await my_slack.send_message(my_module.dates_filter(datas, nowDate));
 
   await browser.close();
 })();
