@@ -18,6 +18,7 @@ const my_slack = require('./slack');
 
   await my_slack.send_message(
     datas.filter(date => {
+      // 掲載日：YYYY年MM月DD日　→　YYYY年MM月DD日
       const DatPublished = date.DatPublished.replace(/\s+/g, '').split('：')[1];
       return nowDate.getDate() == DatPublished.slice(8,10);
     })
@@ -31,6 +32,7 @@ const my_slack = require('./slack');
 
   await my_slack.send_message(
     datas.filter(date => {
+      // 掲載日：YYYY年MM月DD日　→　YYYY年MM月DD日
       const DatPublished = date.DatPublished.replace(/\s+/g, "").split('：')[1];
       return nowDate.getDate() == DatPublished.slice(8,10);
     })
