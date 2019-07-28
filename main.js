@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const my_module = require('./my_module');
+const my_slack = require('./slack');
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -14,9 +15,10 @@ const my_module = require('./my_module');
   let datas = await my_module.create_datas(items);
 
   const nowDate = new Date();
-  console.log(
+
+  await my_slack.send_message(
     datas.filter(date => {
-      const DatPublished = date.DatPublished.replace(/\s+/g, "").split('：')[1];
+      const DatPublished = date.DatPublished.replace(/\s+/g, '').split('：')[1];
       return nowDate.getDate() == DatPublished.slice(8,10);
     })
   );
@@ -27,7 +29,7 @@ const my_module = require('./my_module');
   items = await page.$$('.item_body');
   datas = await my_module.create_datas(items);
 
-  console.log(
+  await my_slack.send_message(
     datas.filter(date => {
       const DatPublished = date.DatPublished.replace(/\s+/g, "").split('：')[1];
       return nowDate.getDate() == DatPublished.slice(8,10);
