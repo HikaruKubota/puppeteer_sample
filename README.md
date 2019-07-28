@@ -1,6 +1,6 @@
 command
 
-npm i puppeteer
-npm i request
-npm i request-promise
-node main
+npm i puppeteer<br>
+npm i request<br>
+npm i request-promise<br>
+node main<br>
