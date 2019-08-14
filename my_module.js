@@ -33,18 +33,16 @@ exports.dates_filter = (dates, nowDate) => {
     //報酬形態
     const payment_label = date.payment_label.replace(/\s+/g, '');
     //値段
-    let amount = date.amount.replace(/\s+/g, '').replace(/,/g, '').replace(/円/g, '');
-    //　以下の書き方で済むのでは？
-    // let amount = date.amount.replace(/[^0-9]+/g, '');
+    let amount = date.amount.replace(/,/g, '');
     const reg = /[^0-9]/;
     if(payment_label == '時間単価制') {
       if(amount.match(reg) && amount != '予算はメンバーと相談'){
-        amount = amount.match(/[0-9]+/g).pop();
+        amount = amount.match(/[0-9]+/g).shift();
       }
       return +amount >= 3000 || amount == '予算はメンバーと相談';
     } else if(payment_label == '固定報酬制'){
       if(amount.match(reg) && amount != '予算はメンバーと相談'){
-        amount = amount.match(/[0-9]+/g).pop();
+        amount = amount.match(/[0-9]+/g).shift();
       }
       return +amount >= 300000 || amount == '予算はメンバーと相談';
     }
